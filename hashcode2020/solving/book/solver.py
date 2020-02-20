@@ -55,10 +55,10 @@ class BookSolver(Solver):
         self.available_days = available_days
 
     def library_potential(self, library) -> Tuple[Union[int, float], ...]:
-        return -library.signup_days,
+        return library.available_score*len(library.books)*library.books_per_days/library.signup_days,
 
     def sort_libraries(self, libraries: Iterable[Library]):
-        return sorted(libraries, key=lambda x: self.library_potential(x), reverse=False)
+        return sorted(libraries, key=lambda x: self.library_potential(x), reverse=True)
 
     def solve(self) -> BookSolution:
         sorted_libraries = self.sort_libraries(self.libraries)
