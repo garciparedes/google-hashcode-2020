@@ -55,9 +55,18 @@ class BookSolver(Solver):
         self.available_days = available_days
 
     def solve(self) -> BookSolution:
-        plannings = list()
-        available_books = self.books
+        k_library = list()
+
         for library in self.libraries:
+            k = library.available_options
+            k_library.append((k, library))
+
+        sorted_libraries = [x[1] for x in sorted(k_library, key= lambda x: x[0])]
+
+        available_books = self.books
+        plannings = list()
+
+        for library in sorted_libraries:
             planning = LibraryPlanning(library)
             planning.insert_possible_books(available_books, self.available_days)
             if not any(planning.books):
