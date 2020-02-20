@@ -52,8 +52,13 @@ class LibraryPlanning(object):
     def insert_possible_books(self, available_books: Set[Book], available_days: int):
         available_days -= self.library.signup_days
         available_books = available_books & self.library.books
-        for book in sorted(available_books, key=op.attrgetter('score'), reverse=True):
-            if not available_days - 1 >= 0:
-                break
+
+        available_books = sorted(available_books, key=op.attrgetter('score'), reverse=True)
+        available_books_iter = iter(available_books)
+        while available_days > 0:
+            for _ in range(self.library.books_per_days):
+                book = next(available_books_iter, None)
+                if book is None:
+                    return
+                self.books.add(book)
             available_days -= 1
-            self.books.add(book)
