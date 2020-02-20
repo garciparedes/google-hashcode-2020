@@ -16,6 +16,5 @@ def read(file_path: Path) -> List[str]:
 
 def write(data: Any, file_path: Path) -> None:
     output = str(data)
-    print(output)
     with file_path.open('w') as f:
         f.write(output)
