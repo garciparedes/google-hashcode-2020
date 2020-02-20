@@ -49,19 +49,18 @@ class BookSolver(Solver):
         assert len(libraries) == metadata[1]
         return BookSolver(books, libraries, days)
 
-    def __init__(self, books: Set[Book], libraries: Set[Library], days: int):
+    def __init__(self, books: Set[Book], libraries: Set[Library], available_days: int):
         self.books = books
         self.libraries = libraries
-        self.days = days
+        self.available_days = available_days
 
     def solve(self) -> BookSolution:
         plannings = list()
-
+        available_books = self.books
         for library in self.libraries:
-            planned_books = list()
-
-            books = library.sorted_books
-            planning = LibraryPlanning(library, planned_books)
+            planning = LibraryPlanning(library)
+            planning.insert_possible_books(available_books, self.available_days)
+            available_books -= planning.books
             plannings.append(planning)
 
         return BookSolution(plannings)

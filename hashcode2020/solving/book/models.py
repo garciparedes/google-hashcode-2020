@@ -49,10 +49,10 @@ class LibraryPlanning(object):
     def book_identifiers(self) -> List[int]:
         return [book.identifier for book in self.books]
 
-    def insert_possible_books(self, available_books: Iterable[Book], available_days: int):
+    def insert_possible_books(self, available_books: Set[Book], available_days: int):
         available_days -= self.library.signup_days
-        available_books = self.library.books.difference(available_books)
-        for book in sorted(available_books, key=op.attrgetter('score'), reverse=True):
+        available_books = available_books - self.library.books
+        for book in sorted(available_books, key=op.attrgetter('score')):
             if not available_days - 1 >= 0:
                 break
             available_days -= 1
