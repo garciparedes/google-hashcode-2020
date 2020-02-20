@@ -55,10 +55,9 @@ class LibraryPlanning(object):
 
         available_books = sorted(available_books, key=op.attrgetter('score'), reverse=True)
         available_books_iter = iter(available_books)
-        while available_days > 0:
+        for _ in range(available_days):
             for _ in range(self.library.books_per_days):
                 book = next(available_books_iter, None)
                 if book is None:
                     return
                 self.books.add(book)
-            available_days -= 1
