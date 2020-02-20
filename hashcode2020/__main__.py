@@ -4,7 +4,7 @@ import sys
 from pathlib import Path
 
 from .solving import (
-    DummySolver,
+    BookSolver,
 )
 from .io import (
     read,
@@ -19,7 +19,7 @@ def main():
 
     input_data = read(input_file_path)
 
-    solver = DummySolver.from_lines(input_data)  # TODO: Replace by "DummySolver" by real implementation.
+    solver = BookSolver.from_lines(input_data)  # TODO: Replace by "DummySolver" by real implementation.
     solution = solver.solve()
 
     write(solution, output_file_path)
