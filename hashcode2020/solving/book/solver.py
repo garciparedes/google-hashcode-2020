@@ -38,7 +38,7 @@ class BookSolver(Solver):
             signup_days = raw_library[0][1]
             books_per_days = raw_library[0][2]
 
-            library_books = [books[i] for i in raw_library[1]]
+            library_books = set(books[i] for i in raw_library[1])
             library = Library(identifier, signup_days, books_per_days, library_books)
             libraries.append(library)
 
@@ -59,6 +59,8 @@ class BookSolver(Solver):
 
         for library in self.libraries:
             planned_books = list()
+
+            books = library.sorted_books
             planning = LibraryPlanning(library, planned_books)
             plannings.append(planning)
 
