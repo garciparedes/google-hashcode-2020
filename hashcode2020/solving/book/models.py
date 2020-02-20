@@ -11,8 +11,10 @@ class Book(object):
 
 class Library(object):
 
-    def __init__(self, identifier: int, books: List[Book]):
+    def __init__(self, identifier: int, signup_days: int, books_per_days: int, books: List[Book]):
         self.identifier = identifier
+        self.signup_days = signup_days
+        self.books_per_days = books_per_days
         self.books = books
 
 

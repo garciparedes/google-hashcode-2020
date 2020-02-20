@@ -12,10 +12,12 @@ class BookSolution(Solution):
         self.plannings = plannings
 
     def __str__(self) -> str:
-        result = str()
-        result += f'{len(self.plannings)}\n'
+        raw_result = list()
+        raw_result.append(f'{len(self.plannings)}')
 
         for planning in self.plannings:
-            result += f'{planning.identifier} {len(planning.books)}\n'
-            result += ' '.join(map(str, planning.book_identifiers)) + '\n'
+            raw_result.append(f'{planning.identifier} {len(planning.books)}')
+            raw_result.append(' '.join(map(str, planning.book_identifiers)))
+
+        result = '\n'.join(raw_result)
         return result

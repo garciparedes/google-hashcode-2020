@@ -21,15 +21,25 @@ class BookSolver(Solver):
     def from_lines(cls, raw: List[str]) -> BookSolver:
         metadata = tuple(map(int, raw[0].split()))
         days = metadata[2]
-        book_scores = tuple(map(int, raw[0].split()))
+        book_scores = tuple(map(int, raw[1].split()))
 
         books = [Book(identifier, score) for identifier, score in enumerate(book_scores)]
 
         libraries = list()
-        for identifier, raw_library in enumerate(raw[2:]):
-            raw_library = tuple(map(int, raw_library.split()))
-            library_books = [books[i] for i in raw_library]
-            library = Library(identifier, library_books)
+
+        raw_libraries = list()
+        rows = list(raw[2:])
+        while any(rows):
+            raw_library = [tuple(map(int, rows.pop(0).split())), tuple(map(int, rows.pop(0).split()))]
+            raw_libraries.append(raw_library)
+
+        for identifier, raw_library in enumerate(raw_libraries):
+            # book_count = raw_library[0][0]
+            signup_days = raw_library[0][1]
+            books_per_days = raw_library[0][2]
+
+            library_books = [books[i] for i in raw_library[1]]
+            library = Library(identifier, signup_days, books_per_days, library_books)
             libraries.append(library)
 
         books = set(books)
