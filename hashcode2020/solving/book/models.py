@@ -51,7 +51,7 @@ class LibraryPlanning(object):
 
     def insert_possible_books(self, available_books: Set[Book], available_days: int):
         available_days -= self.library.signup_days
-        available_books = available_books - self.library.books
+        available_books = available_books & self.library.books
         for book in sorted(available_books, key=op.attrgetter('score')):
             if not available_days - 1 >= 0:
                 break
