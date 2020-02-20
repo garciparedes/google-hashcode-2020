@@ -58,7 +58,7 @@ class BookSolver(Solver):
         k_library = list()
 
         for library in self.libraries:
-            k = library.available_options
+            k = library.available_score
             k_library.append((k, library))
 
         sorted_libraries = [x[1] for x in sorted(k_library, key= lambda x: x[0])]
