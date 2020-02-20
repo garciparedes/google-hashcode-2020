@@ -1,6 +1,7 @@
 from __future__ import annotations
 
 from typing import List
+import operator as op
 
 from cached_property import cached_property
 
@@ -22,6 +23,10 @@ class Library(object):
     @cached_property
     def available_score(self) -> int:
         return sum((book.score for book in self.books), 0)
+
+    @cached_property
+    def sorted_books(self) -> List[Book]:
+        return sorted(self.books, key=op.attrgetter('score'))
 
 
 class LibraryPlanning(object):
