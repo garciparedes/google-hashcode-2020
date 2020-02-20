@@ -55,7 +55,7 @@ class BookSolver(Solver):
         self.available_days = available_days
 
     def library_potential(self, library) -> Tuple[Union[int, float], ...]:
-        return library.available_score*len(library.books)*library.books_per_days/library.signup_days,
+        return library.available_score * len(library.books) * library.books_per_days / library.signup_days,
 
     def sort_libraries(self, libraries: Iterable[Library]):
         return sorted(libraries, key=lambda x: self.library_potential(x), reverse=True)
@@ -63,14 +63,16 @@ class BookSolver(Solver):
     def solve(self) -> BookSolution:
         sorted_libraries = self.sort_libraries(self.libraries)
 
+        available_days = self.available_days
         available_books = self.books
 
         plannings = list()
         for library in sorted_libraries:
             planning = LibraryPlanning(library)
-            planning.insert_possible_books(available_books, self.available_days)
+            planning.insert_possible_books(available_books, available_days)
             if not any(planning.books):
                 continue
+            available_days -= library.signup_days
             available_books -= planning.books
             plannings.append(planning)
 
