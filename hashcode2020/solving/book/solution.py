@@ -21,3 +21,7 @@ class BookSolution(Solution):
 
         result = '\n'.join(raw_result)
         return result
+
+    @property
+    def score(self) -> int:
+        return sum((planning.score for planning in self.plannings), 0)

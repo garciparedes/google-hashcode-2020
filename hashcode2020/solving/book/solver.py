@@ -74,4 +74,6 @@ class BookSolver(Solver):
             available_books -= planning.books
             plannings.append(planning)
 
-        return BookSolution(plannings)
+        solution = BookSolution(plannings)
+        print(solution.score)
+        return solution
