@@ -1,6 +1,12 @@
 from __future__ import annotations
 
-from typing import List, Set, Tuple, Union, Iterable
+from typing import (
+    List,
+    Set,
+    Tuple,
+    Union,
+    Iterable,
+)
 
 from ..abc import (
     Solver,
@@ -54,9 +60,8 @@ class BookSolver(Solver):
         self.libraries = libraries
         self.available_days = available_days
 
-    @staticmethod
-    def library_potential(library) -> Tuple[Union[int, float], ...]:
-        return library.available_score * len(library.books) * library.books_per_days / library.signup_days,
+    def library_potential(self, library) -> Tuple[Union[int, float], ...]:
+        return library.books_per_days * library.available_score / library.signup_days ** 2,
 
     def sort_libraries(self, libraries: Iterable[Library]):
         return sorted(libraries, key=lambda x: self.library_potential(x), reverse=True)
@@ -65,7 +70,7 @@ class BookSolver(Solver):
         sorted_libraries = self.sort_libraries(self.libraries)
 
         available_days = self.available_days
-        available_books = self.books
+        available_books = set(self.books)
 
         plannings = list()
         for library in sorted_libraries:
