@@ -60,6 +60,8 @@ class BookSolver(Solver):
         for library in self.libraries:
             planning = LibraryPlanning(library)
             planning.insert_possible_books(available_books, self.available_days)
+            if not any(planning.books):
+                continue
             available_books -= planning.books
             plannings.append(planning)
 
