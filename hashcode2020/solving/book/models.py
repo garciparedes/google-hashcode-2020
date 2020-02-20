@@ -2,6 +2,8 @@ from __future__ import annotations
 
 from typing import List
 
+from cached_property import cached_property
+
 
 class Book(object):
     def __init__(self, identifier: int, score: int):
@@ -16,6 +18,10 @@ class Library(object):
         self.signup_days = signup_days
         self.books_per_days = books_per_days
         self.books = books
+
+    @cached_property
+    def available_score(self) -> int:
+        return sum((book.score for book in self.books), 0)
 
 
 class LibraryPlanning(object):
