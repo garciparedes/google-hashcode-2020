@@ -61,7 +61,7 @@ class BookSolver(Solver):
             k = library.available_score
             k_library.append((k, library))
 
-        sorted_libraries = [x[1] for x in sorted(k_library, key= lambda x: x[0])]
+        sorted_libraries = [x[1] for x in sorted(k_library, key=lambda x: x[0], reverse=True)]
 
         available_books = self.books
         plannings = list()
